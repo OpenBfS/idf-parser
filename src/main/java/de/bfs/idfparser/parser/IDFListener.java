@@ -192,11 +192,12 @@ public class IDFListener extends IdfBaseListener {
             headerDestinationOrg = destinationOrg.substring(destinationOrg.length() - 1);
         }
         // Date and time are fallbacks, warnings about format are tracked.
-        if (!dateTime.matches(DataTypes.SI10)) {
+        if (!dateTime.matches(DataTypes.SI10) && !dateTime.matches(DataTypes.SI12)) {
             this.addWarning("header", ctx.getStart().getLine(), dateTime, i18n.getString("675"));
         }
         else {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyMMddhhmm");
+            // TODO: IDF-standard does not support seconds yet
+            SimpleDateFormat formatter = dateTime.matches(DataTypes.SI12) ? new SimpleDateFormat("yyMMddhhmmss") : new SimpleDateFormat("yyMMddhhmm");
             Date ts;
             try {
                 ts = formatter.parse(dateTime);
@@ -283,7 +284,7 @@ public class IDFListener extends IdfBaseListener {
         // localittyCode is the concatenation of country and site
         m.setLocalityCode(localityCountry + site);
 
-        if (!measureTime.matches(DataTypes.DT10)) {
+        if (!measureTime.matches(DataTypes.DT10) && !measureTime.matches(DataTypes.DT12)) {
             this.addWarning("measure", ctx.getStart().getLine(), measureTime, i18n.getString("675"));
         }
         if (!timeKey.matches(DataTypes.C4)) {
@@ -297,7 +298,7 @@ public class IDFListener extends IdfBaseListener {
         }
         // Start and end date/time of a measurement are calculated from
         // measureTime, timeKey and dom.
-        if (measureTime.matches(DataTypes.DT10) && timeKey.matches(DataTypes.C4) && measureDescr.matches(DataTypes.SI3)) {
+        if ((measureTime.matches(DataTypes.DT10) || measureTime.matches(DataTypes.DT12)) && timeKey.matches(DataTypes.C4) && measureDescr.matches(DataTypes.SI3)) {
             setDates(m, timeKey, measureTime, measureDescr);
         }
         if (data.getDomByCode(Integer.valueOf(measureDescr)).getDuration() == null) {
@@ -606,7 +607,7 @@ public class IDFListener extends IdfBaseListener {
         Dom domItem = data.getDomByCode(Integer.valueOf(dom));
         Integer period = Integer.valueOf(timeKey.substring(0, 1));
         TimeZone timezone = getTimeZone(timeKey);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyMMddHHmmz");
+        SimpleDateFormat formatter = time.matches(DataTypes.SI12) ? new SimpleDateFormat("yyMMddHHmmssz") : new SimpleDateFormat("yyMMddHHmmz");
 
         if (period == 1) {
             Date start;

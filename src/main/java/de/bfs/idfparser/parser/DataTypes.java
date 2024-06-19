@@ -61,8 +61,10 @@ public class DataTypes {
     public static final String SI8 = "\\d{8}";
     public static final String SI9 = "\\d{9}";
     public static final String SI10 = "\\d{10}";
+    public static final String SI12 = "\\d{12}";
 
     public static final String D8 = "[12][0-9][0-9][0-9][01][0-9][0-3][0-9]";
     public static final String T4 = "[0-2][0-9][0-5][0-9]";
     public static final String DT10 = "[0-2][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9]";
+    public static final String DT12 = "[0-2][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9][0-5][0-9]";
 }

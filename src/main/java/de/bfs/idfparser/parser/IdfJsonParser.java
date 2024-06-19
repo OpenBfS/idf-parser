@@ -52,7 +52,7 @@ public class IdfJsonParser {
     Data staticData;
 
     public IdfJsonParser() {
-        dateFormat = new SimpleDateFormat("YYMMddhhmm");
+        dateFormat = new SimpleDateFormat("YYMMddhhmmss");
         try {
             staticData = Data.getInstance();
         } catch (IOException e) {
