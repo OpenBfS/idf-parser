@@ -465,6 +465,7 @@ public class IDFListener extends IdfBaseListener {
                 transformCoordinates(l, geoKey, firstGeo, secondGeo);
             } catch (NumberFormatException e) {
                 this.addError("site", ctx.getStart().getLine(), "coordinates", i18n.getString("675"));
+                return;
             }
 
         }
@@ -723,8 +724,8 @@ public class IDFListener extends IdfBaseListener {
             this.addWarning("site", -1, "transform", i18n.getString("675"));
             return;
         }
-        l.setLatitude(Double.parseDouble(n.getX()));
-        l.setLongitude(Double.parseDouble(n.getY()));
+        l.setLatitude(Double.parseDouble(n.getY()));
+        l.setLongitude(Double.parseDouble(n.getX()));
 
     }
 
