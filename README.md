@@ -1,6 +1,6 @@
 # IDF Parser
 
-The IDF (International Data Exchange Format) format is a data interface for exchanging radiological data. This library parses either IDF data files to JSON or vice versa. The format description can be found in the document 'IDFe331.pdf'.
+The IDF (International Data Exchange Format) format is a data interface for exchanging radiological data. This library parses either IDF data files to JSON or vice versa. The format description can be found in the document 'IDFe331.pdf' located in the ./docs folder.
 
 
 ## License
