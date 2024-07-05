@@ -563,10 +563,10 @@ public class KdaUtil {
     private static String transformX(String x) {
         Double dX;
         if (x.startsWith("E")) {
-            dX = Double.parseDouble(x.substring(1, x.length() - 1));
+            dX = Double.parseDouble(x.substring(1, x.length()));
         }
         else if (x.startsWith("W")) {
-            dX = Double.parseDouble(x.substring(1, x.length() - 1));
+            dX = Double.parseDouble(x.substring(1, x.length()));
             dX *= -1;
         }
         else {
@@ -578,9 +578,9 @@ public class KdaUtil {
     private static String transformY(String y) {
         Double dY;
         if (y.startsWith("N")) {
-            dY = Double.parseDouble(y.substring(1, y.length() - 1));
+            dY = Double.parseDouble(y.substring(1, y.length()));
         } else if (y.startsWith("S")) {
-            dY = Double.parseDouble(y.substring(1, y.length() - 1));
+            dY = Double.parseDouble(y.substring(1, y.length()));
             dY *= -1;
         }
         else {
