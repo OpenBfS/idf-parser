@@ -52,7 +52,7 @@ public class IdfJsonParser {
     Data staticData;
 
     public IdfJsonParser() {
-        dateFormat = new SimpleDateFormat("YYMMddhhmmss");
+        dateFormat = new SimpleDateFormat("YYMMddHHmm");
         try {
             staticData = Data.getInstance();
         } catch (IOException e) {
@@ -173,7 +173,8 @@ public class IdfJsonParser {
 
             //Get country and site id
             String localityCode = measure.getLocalityCode();
-            if (localityCode == null || localityCode.length() < 7) {
+            // TODO: change in standard needed (7 bytes to 6 in length?!)
+            if (localityCode == null || localityCode.length() < 6) {
                 throw new MissingMandatoryFieldException("localitycode", localityCode);
             }
             String country = localityCode.substring(0, 2);
