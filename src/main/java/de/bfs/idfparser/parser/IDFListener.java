@@ -277,7 +277,8 @@ public class IDFListener extends IdfBaseListener {
         } else {
             localityCountry = country;
         }
-        if (!site.matches(DataTypes.SC5)) {
+        // TODO: change in standard needed (4 bytes in length at least, max. 5 bytes?!)
+        if (!site.matches(DataTypes.SC4) && !site.matches(DataTypes.SC5)) {
             this.addWarning("measure", ctx.getStart().getLine(), country, i18n.getString("675"));
             return;
         }
