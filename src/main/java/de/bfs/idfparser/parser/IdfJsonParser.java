@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringJoiner;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.json.bind.Jsonb;
@@ -147,7 +148,7 @@ public class IdfJsonParser {
         if (headerObj == null) {
             throw new InvalidHeaderException("", "Header property not found");
         }
-        SimpleDateFormat dateSourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat dateSourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         Date timestamp = dateSourceFormat.parse(headerObj.getDate());
         String header = String.format("%s%s %s%s %s %s",
             headerObj.getSenderCountry(),
@@ -181,10 +182,19 @@ public class IdfJsonParser {
             String siteId = localityCode.substring(2);
 
             /* Get time and description of measurement
-               As the json input does not provide a timekey, the start date is used with the "1" timekey
+               TODO: Default time zone in IDF is UTC, therefore we are returning UTC independent of the original time zone for now
+               If a start date is provided we are using it as timeKey (default), if not use end measure and set timeKey respectively
             */
-            String tom = dateFormat.format(measure.getStartMeasure());
-            String timekey = "1";
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            String tom, timekey;
+
+            if (measure.getStartMeasure() == null) {
+                tom = dateFormat.format(measure.getEndMeasure());
+                timekey = "3";
+            } else {
+                tom = dateFormat.format(measure.getStartMeasure());
+                timekey = "1";
+            }
             String dom = measure.getDom().toString();
 
             //Get measured value
