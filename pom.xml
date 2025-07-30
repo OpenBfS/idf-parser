@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.bfs</groupId>
     <artifactId>idf-parser</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3-SNAPSHOT</version>
     <properties>
         <antlr.version>4.9.2</antlr.version>
         <maven.compiler.source>11</maven.compiler.source>
